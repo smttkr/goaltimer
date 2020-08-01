@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 0;
+}
+.goal-box {
+    width: 200px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    text-align: center;
+    overflow: hidden;
+    margin: 10px 10px;
+    padding: 5px;
+}
+.goal-box .title {
+    margin: 0;
+}
+.goal-box p {
+    margin: 10px 0;
+}
+.achieve{
+    color: #28a745;
+}
+.goal-box input {
+    display: block;
+    width: 100px;
+    margin: 5px auto;
+    text-align: center;
+}
+.goal-box .record-btn {
+    border: none;
+    background-color: lightcoral;
+}
+
+.new-goal {
+    width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding-bottom: 10px;
+    padding: 10px;
+}
+
+.new-goal input {
+    display: block;
+    margin: 5px auto;
+    width: 150px;
+    height: 30px;
+}
+.new-goal .goal-time {
+    display: inline-block;
+    width: 60px;
+}
+.new-goal .submit-btn {
+    display: block;
+    margin: auto;
+    border: none;
+    background-color: #428bca;
+}
