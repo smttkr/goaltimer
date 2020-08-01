@@ -15,12 +15,14 @@ class Goal extends Model
 
     public function getAllGoal($user_id)
     {
+        // ユーザーが持つゴールを未達成のものから抜き出す
         $result = Goal::where('user_id', $user_id) ->orderBy('status', 'desc') ->get();
         return $result;
     }
 
     public function getGoalTime()
     {
+        // 分時間でデータベースに保存されているゴールタイムを変換して返す
         $time = $this->goal_time;
         $result = convertHour($time);
         return $result;
@@ -28,6 +30,7 @@ class Goal extends Model
 
     public function getTimeRecord()
     {
+        // ゴールがもつタイムレコードを合計して返す
         $goal_id = $this->id;
         $records =  TimeRecord::where('goal_id', $goal_id)->get();
         $result = 0;
@@ -40,6 +43,7 @@ class Goal extends Model
 
     public function getAddTime()
     {
+        ゴールがもつ残り時間を返す
         $goal_time = $this->goal_time;
         $goal_id = $this->id;
         $records =  TimeRecord::where('goal_id', $goal_id)->get();
@@ -59,6 +63,7 @@ class Goal extends Model
 
     public function checkstatus()
     {
+        // ユーザーとゴールの持ち主が一致しているかのチェック
         $addTime = $this->getAddTime();
         if ($addTime <0 && $this->status === 1) {
             $this->status = 0;

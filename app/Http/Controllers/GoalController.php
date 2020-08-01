@@ -43,7 +43,7 @@ class GoalController extends Controller
         $form = [
             'user_id' => $user->id,
             'goal_name' => $request->goal_name,
-            'goal_time' => $request->goal_time,
+            'goal_time' => $request->goal_time*60,
             'status' =>1,
         ];
 

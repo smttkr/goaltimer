@@ -18,7 +18,7 @@ class CreateGoalsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('goal_name');
             $table->integer('goal_time');
-            $table->integer('status');
+            $table->integer('status'); //達成未達成判別のため
             $table->timestamps();
 
             $table->foreign('user_id')

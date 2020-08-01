@@ -15,6 +15,7 @@ class TimeRecord extends Model
 
     public function scopeThisMonth($query)
     {
+        // 今月だけのデータを返すためのスコープ
         $firstOfMonth = Carbon::now()->firstOfMonth();
         $endOfMonth = Carbon::now()->endOfMonth();
 

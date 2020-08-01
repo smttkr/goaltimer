@@ -26,7 +26,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/GoalController', 'GoalController@index')->name('index');
-    Route::post('/GoalController/create', 'GoalController@create')->name('create')->middleware(GoalMiddleware::class);
+    Route::post('/GoalController/create', 'GoalController@create')->name('create');
 
     Route::group(['middleware' => 'BlockImpostor'], function () {
         Route::get('/GoalController/show/{goal}', 'GoalController@show')->name('admin');
