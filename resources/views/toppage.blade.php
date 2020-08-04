@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.0/milligram.css">
   <link rel="stylesheet" href="{{ asset('/css/top.css') }}">
+  <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
 </head>
+
 <body>
   <header>
     <h1 class="title">GoalTimer</h1>

@@ -22,7 +22,7 @@ class TimeRecordController extends Controller
                 'goal_id'=> $goal->id,
                 'time_record' =>$record,
             ];
-        $timeRecord -> fill($form) ->save();
+        $timeRecord->fill($form) ->save();
 
         $goal->checkstatus();
         return redirect(route('index'));
@@ -47,11 +47,11 @@ class TimeRecordController extends Controller
     public function update(TimeRecordRequest $request, $point, TimeRecord $timeRecord)
     {
         if ($point === 'created') {
-            $timeRecord ->created_at = $request->created;
-            $timeRecord ->save();
+            $timeRecord->created_at = $request->created;
+            $timeRecord->save();
         } elseif ($point === 'record') {
-            $timeRecord ->time_record = convertRecord($request->record);
-            $timeRecord ->save();
+            $timeRecord->time_record = convertRecord($request->record);
+            $timeRecord->save();
         }
 
         $goal = Goal::find($timeRecord->goal_id);
@@ -61,7 +61,7 @@ class TimeRecordController extends Controller
 
     public function delete(TimeRecord $timeRecord)
     {
-        $timeRecord ->delete();
+        $timeRecord->delete();
 
         $goal = Goal::find($timeRecord->goal_id);
         $goal->checkstatus();

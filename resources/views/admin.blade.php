@@ -25,21 +25,21 @@ ADMIN
     </tr>
     <tbody>
         <tr id="usually" class=''>
-            <td>{{ $goal ->goal_name }}
+            <td>{{ $goal->goal_name }}
                 @error('goal_name')
                 <p class="error-message">{{ $message }}</p>
                 @enderror
             </td>
-            <td>{{ $goal ->getGoalTime() }}
+            <td>{{ $goal->goal_time }}
                 @error('goal_time')
                 <p class="error-message">{{ $message }}</p>
                 @enderror
             </td>
-            <td>{{ $goal ->created_at ->format('Y-m-d') }}
+            <td>{{ $goal->created_at->format('Y-m-d') }}
             </td>
             <td><button id="update" class="button-outline">update</button></td>
             <td>
-                <form action="{{ url('GoalController/delete',$goal ->id) }}" method="post" onSubmit="return checkSubmit()">
+                <form action="{{ url('GoalController/delete',$goal->id) }}" method="post" onSubmit="return checkSubmit()">
                     @method("delete")
                     @csrf
                     <button id="delete" class="button-outline" type="submit">delete</button>
@@ -47,25 +47,25 @@ ADMIN
             </td>
         </tr>
         <tr id="on-edit" class='hidden'>
-            <form action="{{ url('GoalController/update/goal_name',$goal ->id) }}" method="post">
+            <form action="{{ url('GoalController/update/goal_name',$goal->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <td>
-                    <input type="text" name="goal_name" value="{{ $goal ->goal_name }}">
+                    <input type="text" name="goal_name" value="{{ $goal->goal_name }}">
                     <button type="submit">変更</button>
                 </td>
             </form>
-            <form action="{{ url('GoalController/update/goal_time',$goal ->id) }}" method="post">
+            <form action="{{ url('GoalController/update/goal_time',$goal->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <td>
-                    <input type="text" name="goal_time" value="{{ $goal ->getGoalTime() }}">
+                    <input type="text" name="goal_time" value="{{ $goal->GoalTime }}">
                     <button type="submit">変更</button>
                 </td>
             </form>
             </form>
             <td>
-                {{ $goal ->created_at ->format('Y-m-d') }}
+                {{ $goal->created_at->format('Y-m-d') }}
             </td>
             <td>
                 <button id='back' class='button-outline'>戻る</button>
@@ -88,8 +88,8 @@ ADMIN
             $i+=1;
             @endphp
             <tr id="record-raw-{{ $i }}" class="record-raw {{ hideSome($i) }}">
-                <td>{{ $record ->created_at ->format('Y-m-d')}}</td>
-                <td>{{ convertTime($record ->time_record) }}</td>
+                <td>{{ $record->created_at->format('Y-m-d')}}</td>
+                <td>{{ convertTime($record->time_record) }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -100,7 +100,7 @@ ADMIN
             </td>
             <td>
                 <button class='button-outline' id='detail'>
-                    <a href="{{ url('/TimeRecordController/show',$goal ->id) }}">詳細</a>
+                    <a href="{{ url('/TimeRecordController/show',$goal->id) }}">詳細</a>
                 </button>
             </td>
         </tr>

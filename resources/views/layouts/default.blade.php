@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.0/milligram.css">
   <link rel="stylesheet" href="{{ asset('css/default.css') }}">
+  <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
   @yield('style')
 </head>
 
@@ -21,8 +22,8 @@
       <li>
         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
              document.getElementById('logout-form').submit();">
-            {{ __('ログアウト') }}
-          </a>
+          {{ __('ログアウト') }}
+        </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
           @csrf
         </form>
@@ -39,4 +40,5 @@
 
   </footer>
 </body>
+
 </html>

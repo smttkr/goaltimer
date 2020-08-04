@@ -19,14 +19,14 @@ HOME
     <h2 class="title">
       <a href="{{ url('GoalController/show',$goal ->id) }}">{{ $goal ->goal_name }}</a>
     </h2>
-    <p class="goal-time">目標:{{ $goal ->getGoalTime() }}時間</p>
-    <p class="now-time">現在:{{ $goal ->getTimeRecord() }}</p>
-    @if ($goal ->status === '1')
-    <p class="additional-time">残り:{{ $goal ->getAddTime() }}</p>
+    <p class="goal-time">目標:{{ $goal->goal_time }}時間</p>
+    <p class="now-time">現在:{{ $goal->getTimeRecord() }}</p>
+    @if ($goal->status === '1')
+    <p class="additional-time">残り:{{ $goal->getAddTime() }}</p>
     @else
-  <p class='achieve'>達成済み</p>
+    <p class='achieve'>達成済み</p>
     @endif
-    <form action="{{ url('TimeRecordController/create',$goal ->id) }}" method="POST">
+    <form action="{{ url('TimeRecordController/create',$goal->id) }}" method="POST">
       @csrf
       <input type="text" name="record" placeholder='00:00'>
       @error('record')

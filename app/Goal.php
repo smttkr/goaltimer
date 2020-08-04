@@ -13,20 +13,27 @@ class Goal extends Model
     'status'
     ];
 
-    public function getAllGoal($user_id)
+    public function setGoalTimeAttribute(int $value)
     {
-        // ユーザーが持つゴールを未達成のものから抜き出す
-        $result = Goal::where('user_id', $user_id) ->orderBy('status', 'desc') ->get();
+        //goal_timeをセットするときは自動的に60をかける
+        $this->attributes['goal_time'] = $value*60;
+    }
+
+    public function getGoalTimeAttribute($value)
+    {
+        // 分時間でデータベースに保存されているゴールタイムを変換して返す
+        $result = intdiv($value, 60);
         return $result;
     }
 
-    public function getGoalTime()
+
+    public function getAllGoal($user_id)
     {
-        // 分時間でデータベースに保存されているゴールタイムを変換して返す
-        $time = $this->goal_time;
-        $result = convertHour($time);
+        // ユーザーが持つゴールを未達成のものから抜き出す
+        $result = Goal::where('user_id', $user_id) ->orderBy('status', 'desc')->get();
         return $result;
     }
+
 
     public function getTimeRecord()
     {
@@ -35,7 +42,7 @@ class Goal extends Model
         $records =  TimeRecord::where('goal_id', $goal_id)->get();
         $result = 0;
         foreach ($records as $record) {
-            $result += $record ->time_record;
+            $result += $record->time_record;
         }
         $result = convertTime($result);
         return $result;
@@ -43,13 +50,13 @@ class Goal extends Model
 
     public function getAddTime()
     {
-        ゴールがもつ残り時間を返す
-        $goal_time = $this->goal_time;
+        //ゴールがもつ残り時間を返す
+        $goal_time = $this->goal_time*60;
         $goal_id = $this->id;
         $records =  TimeRecord::where('goal_id', $goal_id)->get();
         $time_record = 0;
         foreach ($records as $record) {
-            $time_record += $record ->time_record;
+            $time_record += $record->time_record;
         }
         $result = $goal_time - $time_record;
         $result = convertTime($result);
@@ -58,12 +65,12 @@ class Goal extends Model
 
     public function records()
     {
-        return $this ->hasMany('App\TimeRecord');
+        return $this->hasMany('App\TimeRecord');
     }
 
     public function checkstatus()
     {
-        // ユーザーとゴールの持ち主が一致しているかのチェック
+        //statusのチェック，変更
         $addTime = $this->getAddTime();
         if ($addTime <0 && $this->status === 1) {
             $this->status = 0;

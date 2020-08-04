@@ -7,11 +7,7 @@ function convertTime($time)
     return $result;
 }
 
-function convertHour($time)
-{
-    $result =intdiv($time, 60);
-    return $result;
-}
+
 
 function convertRecord($time)
 {

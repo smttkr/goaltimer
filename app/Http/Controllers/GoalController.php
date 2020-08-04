@@ -12,7 +12,7 @@ class GoalController extends Controller
     public function index(Goal $goal)
     {
         $user = Auth::user();
-        $goalList = $goal ->getAllGoal($user ->id);
+        $goalList = $goal->getAllGoal($user->id);
 
         $params = [
             'user' => $user,
@@ -27,7 +27,7 @@ class GoalController extends Controller
 
         $i = 0;
 
-        $records = $goal ->records() ->ThisMonth() ->orderBy('id', 'desc') ->get();
+        $records = $goal->records()->thisMonth()->orderBy('id', 'desc') ->get();
         $params = [
             'user' => $user,
             'goal' => $goal,
@@ -43,11 +43,11 @@ class GoalController extends Controller
         $form = [
             'user_id' => $user->id,
             'goal_name' => $request->goal_name,
-            'goal_time' => $request->goal_time*60,
+            'goal_time' => $request->goal_time,
             'status' =>1,
         ];
 
-        $goal ->fill($form)->save();
+        $goal->fill($form)->save();
 
         return redirect(route('index'));
     }
@@ -55,15 +55,9 @@ class GoalController extends Controller
     public function update(GoalRequest $request, $point, Goal $goal)
     {
         $user = Auth::user();
+        $goal->{ $point } = $request->{ $point };
+        $goal->save();
 
-
-        if ($point === 'goal_name') {
-            $goal->goal_name = $request->goal_name;
-            $goal->save();
-        } elseif ($point === 'goal_time') {
-            $goal->goal_time = $request->goal_time*60;
-            $goal->save();
-        }
         $goal->checkstatus();
 
         return redirect(url('GoalController/show', $goal->id));
