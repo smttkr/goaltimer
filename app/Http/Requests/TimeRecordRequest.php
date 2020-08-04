@@ -25,17 +25,17 @@ class TimeRecordRequest extends FormRequest
     public function rules()
     {
         return [
-            'record' => ['filled', new TimeType],
-            'created' =>'filled|date|date_format:Y-m-d',
+            'time_record' => ['filled', new TimeType],
+            'created_at' =>'filled|date|date_format:Y-m-d',
         ];
     }
 
     public function messages()
     {
         return [
-        'record.filled' =>'入力してください',
-        'created.filled' =>'入力してください',
-        'created.date' =>'正しい形式で入力してください'
+        'time_record.filled' =>'入力してください',
+        'created_at.filled' =>'入力してください',
+        'created_at.date' =>'正しい形式で入力してください'
         ];
     }
 }

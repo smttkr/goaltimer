@@ -40,13 +40,13 @@ RECORD DETAILS
         document.getElementById('form-'+event.target.id).classList.toggle('hidden');">
           {{ $timeRecord -> created_at->format('Y-m-d')}}
         </a>
-        <form action="{{ url('TimeRecordController/update/created',$timeRecord->id) }}" method="POST" id="{{ 'form-day'.$i }}" class="hidden">
+        <form action="{{ url('TimeRecordController/update/created_at',$timeRecord->id) }}" method="POST" id="{{ 'form-day'.$i }}" class="hidden">
           @method('PUT')
           @csrf
-          <input class='input' name='created' type="text">
+          <input class='input' name='created_at' type="text">
           <button type="submit" class="edit-btn">変更</button>
         </form>
-        @error('created')
+        @error('created_at')
         <p class="error-message">{{ $message }}</p>
         @enderror
       </td>
@@ -55,13 +55,13 @@ RECORD DETAILS
         document.getElementById('form-'+event.target.id).classList.toggle('hidden');">
           {{ convertTime($timeRecord->time_record) }}
         </a>
-        <form action="{{ url('TimeRecordController/update/record',$timeRecord->id) }}" method="POST" id="{{ 'form-time'.$i }}" class="hidden">
+        <form action="{{ url('TimeRecordController/update/time_record',$timeRecord->id) }}" method="POST" id="{{ 'form-time'.$i }}" class="hidden">
           @method('PUT')
           @csrf
-          <input class='input' name='record' type="text">
+          <input class='input' name='time_record' type="text">
           <button type="submit" class="edit-btn">変更</button>
         </form>
-        @error('record')
+        @error('time_record')
         <p class="error-message">{{ $message }}</p>
         @enderror
       </td>

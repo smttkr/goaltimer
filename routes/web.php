@@ -30,12 +30,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'BlockImpostor'], function () {
         Route::get('/GoalController/show/{goal}', 'GoalController@show')->name('admin');
-        Route::put('/GoalController/update/{point}/{goal}', 'GoalController@update');
+        Route::put('/GoalController/update/{point}/{goal}', 'GoalController@update')->where('point', 'goal_name|goal_time');
         Route::delete('/GoalController/delete/{goal}', 'GoalController@delete')->name('delete');
 
         Route::post('/TimeRecordController/create/{goal}', 'TimeRecordController@create');
         Route::get('/TimeRecordController/show/{goal}', 'TimeRecordController@show');
-        Route::put('/TimeRecordController/update/{point}/{timeRecord}', 'TimeRecordController@update');
+        Route::put('/TimeRecordController/update/{point}/{timeRecord}', 'TimeRecordController@update')->where('point', 'created_at|time_record');
         Route::delete('/TimeRecordController/delete/{timeRecord}', 'TimeRecordController@delete');
     });
 });

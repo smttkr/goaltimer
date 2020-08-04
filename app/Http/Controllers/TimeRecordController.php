@@ -14,7 +14,7 @@ class TimeRecordController extends Controller
     {
         $user = Auth::user();
 
-        $record = convertRecord($request->record);
+        $record = $request->record;
         $timeRecord = new TimeRecord;
 
         $form = [
@@ -46,14 +46,9 @@ class TimeRecordController extends Controller
 
     public function update(TimeRecordRequest $request, $point, TimeRecord $timeRecord)
     {
-        if ($point === 'created') {
-            $timeRecord->created_at = $request->created;
-            $timeRecord->save();
-        } elseif ($point === 'record') {
-            $timeRecord->time_record = convertRecord($request->record);
-            $timeRecord->save();
-        }
-
+        $timeRecord->{ $point } = $request->{ $point };
+        $timeRecord->save();
+        
         $goal = Goal::find($timeRecord->goal_id);
         $goal->checkstatus();
         return back();

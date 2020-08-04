@@ -23,4 +23,14 @@ class TimeRecord extends Model
         ->whereDate('created_at', '>=', $firstOfMonth)
         ->whereDate('created_at', '<=', $endOfMonth);
     }
+
+    public function setTimeRecordAttribute($value)
+    {
+        $temp = explode(':', $value);
+        $hour = $temp[0] * 60;
+        $min = $temp[1];
+        $value = $hour + $min;
+
+        $this->attributes['time_record'] = $value;
+    }
 }
