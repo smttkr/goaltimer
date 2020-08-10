@@ -17,6 +17,7 @@ class GoalController extends Controller
         $params = [
             'user' => $user,
             'goalList' => $goalList,
+            'done' => 0
         ];
         return view('index', $params);
     }
@@ -24,6 +25,7 @@ class GoalController extends Controller
     public function show(Goal $goal)
     {
         $user = Auth::user();
+        $this->authorize('goalPolicyCheck', $goal);
 
         $i = 0;
 
@@ -40,6 +42,7 @@ class GoalController extends Controller
     public function create(GoalRequest $request, Goal $goal)
     {
         $user = Auth::user();
+
         $form = [
             'user_id' => $user->id,
             'goal_name' => $request->goal_name,
@@ -54,7 +57,8 @@ class GoalController extends Controller
 
     public function update(GoalRequest $request, $point, Goal $goal)
     {
-        $user = Auth::user();
+        $this->authorize('goalPolicyCheck', $goal);
+
         $goal->{ $point } = $request->{ $point };
         $goal->save();
 
@@ -65,6 +69,8 @@ class GoalController extends Controller
 
     public function delete(Goal $goal)
     {
+        $this->authorize('goalPolicyCheck', $goal);
+
         $goal->delete();
         return redirect(route('index'));
     }

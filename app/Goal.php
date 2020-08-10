@@ -13,6 +13,9 @@ class Goal extends Model
     'status'
     ];
 
+    const DONE = 0;
+    const UNDONE = 1;
+
     public function setGoalTimeAttribute(int $value)
     {
         //goal_timeをセットするときは自動的に60をかける
@@ -68,15 +71,15 @@ class Goal extends Model
         return $this->hasMany('App\TimeRecord');
     }
 
-    public function checkstatus()
+    public function checkStatus()
     {
         //statusのチェック，変更
         $addTime = $this->getAddTime();
-        if ($addTime <0 && $this->status === 1) {
-            $this->status = 0;
+        if ($addTime <0 && $this->status == Goal::UNDONE) {
+            $this->status = Goal::DONE;
             $this->save();
-        } elseif ($addTime >0 && $this->status === 0) {
-            $this->status = 1;
+        } elseif ($addTime >0 && $this->status == Goal::DONE) {
+            $this->status = Goal::UNDONE;
             $this->save();
         }
     }

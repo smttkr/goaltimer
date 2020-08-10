@@ -21,15 +21,15 @@ HOME
     </h2>
     <p class="goal-time">目標:{{ $goal->goal_time }}時間</p>
     <p class="now-time">現在:{{ $goal->getTimeRecord() }}</p>
-    @if ($goal->status === '1')
+    @if ($goal->status != $done)
     <p class="additional-time">残り:{{ $goal->getAddTime() }}</p>
     @else
     <p class='achieve'>達成済み</p>
     @endif
     <form action="{{ url('TimeRecordController/create',$goal->id) }}" method="POST">
       @csrf
-      <input type="text" name="record" placeholder='00:00'>
-      @error('record')
+      <input type="text" name="time_record" placeholder='00:00'>
+      @error('time_record')
       <p class="error-message">{{ $message }}</p>
       @enderror
       <button type="submit" class="record-btn">記録</button>

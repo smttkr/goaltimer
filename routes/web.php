@@ -25,17 +25,15 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    
     Route::get('/GoalController', 'GoalController@index')->name('index');
     Route::post('/GoalController/create', 'GoalController@create')->name('create');
+    Route::get('/GoalController/show/{goal}', 'GoalController@show')->name('admin');
+    Route::put('/GoalController/update/{point}/{goal}', 'GoalController@update')->where('point', 'goal_name|goal_time');
+    Route::delete('/GoalController/delete/{goal}', 'GoalController@delete')->name('delete');
 
-    Route::group(['middleware' => 'BlockImpostor'], function () {
-        Route::get('/GoalController/show/{goal}', 'GoalController@show')->name('admin');
-        Route::put('/GoalController/update/{point}/{goal}', 'GoalController@update')->where('point', 'goal_name|goal_time');
-        Route::delete('/GoalController/delete/{goal}', 'GoalController@delete')->name('delete');
-
-        Route::post('/TimeRecordController/create/{goal}', 'TimeRecordController@create');
-        Route::get('/TimeRecordController/show/{goal}', 'TimeRecordController@show');
-        Route::put('/TimeRecordController/update/{point}/{timeRecord}', 'TimeRecordController@update')->where('point', 'created_at|time_record');
-        Route::delete('/TimeRecordController/delete/{timeRecord}', 'TimeRecordController@delete');
-    });
+    Route::post('/TimeRecordController/create/{goal}', 'TimeRecordController@create');
+    Route::get('/TimeRecordController/show/{goal}', 'TimeRecordController@show');
+    Route::put('/TimeRecordController/update/{point}/{timeRecord}', 'TimeRecordController@update')->where('point', 'created_at|time_record');
+    Route::delete('/TimeRecordController/delete/{timeRecord}', 'TimeRecordController@delete');
 });

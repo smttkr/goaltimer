@@ -13,6 +13,8 @@ class TimeRecordController extends Controller
     public function create(TimeRecordRequest $request, Goal $goal)
     {
         $user = Auth::user();
+        $this->authorize('goalPolicyCheck', $goal);
+
 
         $record = $request->record;
         $timeRecord = new TimeRecord;
@@ -24,13 +26,14 @@ class TimeRecordController extends Controller
             ];
         $timeRecord->fill($form) ->save();
 
-        $goal->checkstatus();
+        $goal->checkStatus();
         return redirect(route('index'));
     }
 
     public function show(Goal $goal)
     {
         $user = Auth::user();
+        $this->authorize('goalPolicyCheck', $goal);
 
         $timeRecords = $goal ->records()->orderBy('created_at', 'desc')->paginate(30);
         $i = 0;
@@ -46,9 +49,11 @@ class TimeRecordController extends Controller
 
     public function update(TimeRecordRequest $request, $point, TimeRecord $timeRecord)
     {
+        $this->authorize('timeRecordPolicyCheck', $timeRecord);
+
         $timeRecord->{ $point } = $request->{ $point };
         $timeRecord->save();
-        
+
         $goal = Goal::find($timeRecord->goal_id);
         $goal->checkstatus();
         return back();
@@ -56,6 +61,8 @@ class TimeRecordController extends Controller
 
     public function delete(TimeRecord $timeRecord)
     {
+        $this->authorize('timeRecordPolicyCheck', $timeRecord);
+
         $timeRecord->delete();
 
         $goal = Goal::find($timeRecord->goal_id);
